@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="no" data-theme="">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>DINAVIS – Hele Norges gratisavis</title>
+  <meta name="description" content="Gratis, åpen og personlig nettavis for hele Norge – alle fylker, tema og kilder, ingen betalingsmur.">
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+Pro:wght@400;600;700&family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="assets/img/logo.svg">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <style>
+    :root {
+      --primary-red:#c41e3a; --dark-red:#a01729; --light-red:#e8394d;
+      --blue:#1a5490; --blue-dark:#0d3a66; --green:#2d7d32; --orange:#f57c00;
+      --text:#1a1a1a; --muted:#6a6a6a; --muted-2:#8c8c8c;
+      --border:#e4e4e4; --border-2:#d4d4d4;
+      --bg:#ffffff; --bg-2:#f7f7f9; --card:#ffffff; --shadow:0 4px 16px rgba(0,0,0,.08);
+    }
+    [data-theme="dark"]{
+      --text:#e6e6e6; --muted:#bdbdbd; --muted-2:#9c9c9c;
+      --bg:#0f1115; --bg-2:#161a21; --card:#151923; --border:#2a2f3a; --border-2:#333a47;
+      --shadow:0 8px 20px rgba(0,0,0,.45);
+    }
+    *{box-sizing:border-box} html,body{margin:0}
+    body{font-family:'Open Sans',system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+
+    /* Topbar */
+    .topbar{background:var(--primary-red);color:#fff;font-size:13px}
+    .topbar .wrap{max-width:1200px;margin:0 auto;display:flex;gap:16px;align-items:center;justify-content:space-between;padding:8px 20px}
+    .pill{background:rgba(255,255,255,.18);padding:5px 10px;border-radius:999px;font-weight:600}
+
+    /* Header */
+    header{background:var(--card);box-shadow:var(--shadow);border-bottom:3px solid var(--primary-red)}
+    .head{max-width:1200px;margin:0 auto;display:flex;gap:16px;align-items:center;justify-content:space-between;padding:16px 20px}
+    .brand{display:flex;align-items:center;gap:14px}
+    .logo{width:52px;height:52px;border-radius:10px;display:grid;place-items:center;background:var(--primary-red);color:#fff;font-weight:800;font-family:'Source Serif Pro',serif;font-size:26px}
+    .mast{display:flex;flex-direction:column}
+    .title{font-family:'Source Serif Pro',serif;color:var(--primary-red);font-size:34px;letter-spacing:-.5px;margin:0}
+    .subtitle{color:var(--muted);font-size:14px}
+
+    /* Nav */
+    .nav{position:sticky;top:0;z-index:50;background:#111926;color:#fff;box-shadow:var(--shadow)}
+    .nav .wrap{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:16px;padding:10px 20px}
+    .links{display:flex;align-items:center;gap:6px;flex:1;flex-wrap:wrap}
+    .link{color:#fff;text-decoration:none;padding:10px 14px;border-radius:6px;border:1px solid transparent;letter-spacing:.3px;font-weight:600}
+    .link:hover,.link.active{background:var(--primary-red)}
+    .tools{display:flex;gap:10px}
+    .tool{border:none;background:transparent;color:#fff;font-size:16px;padding:8px;border-radius:6px;cursor:pointer}
+    .tool:hover{background:rgba(255,255,255,.12)}
+    .hamb{display:none}
+    @media(max-width:768px){
+      .links{display:none}
+      .links.open{display:flex;width:100%}
+      .hamb{display:inline-flex}
+      .nav .wrap{flex-wrap:wrap}
+    }
+
+    /* Breaking */
+    .breaking{background:var(--light-red);color:#fff}
+    .breaking .wrap{max-width:1200px;margin:0 auto;display:flex;gap:12px;align-items:center;padding:10px 20px}
+    .badge{background:#fff;color:var(--primary-red);font-weight:800;font-size:12px;padding:5px 10px;border-radius:6px}
+
+    /* Layout */
+    .main{max-width:1200px;margin:0 auto;padding:26px 20px;display:grid;grid-template-columns:1fr 320px;gap:28px}
+    @media(max-width:1024px){.main{grid-template-columns:1fr}}
+    .card{background:var(--card);border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow)}
+
+    /* Filter */
+    .filter{padding:22px}
+    .filter h2{margin:0 0 12px;font-family:'Source Serif Pro',serif;color:var(--primary-red);font-size:20px}
+    .grid{display:grid;grid-template-columns:repeat(4,minmax(180px,1fr));gap:12px}
+    @media(max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:520px){.grid{grid-template-columns:1fr}}
+    .fg{display:flex;flex-direction:column;gap:6px}
+    label{font-size:12px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;color:var(--muted)}
+    select,input[type="search"]{padding:10px 12px;border:1px solid var(--border-2);border-radius:8px;background:var(--bg);color:var(--text)}
+    .f-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:12px}
+    .btn{border:none;border-radius:8px;padding:10px 14px;font-weight:700;cursor:pointer}
+    .btn.p{background:var(--primary-red);color:#fff}.btn.p:hover{background:var(--dark-red)}
+    .btn.s{background:var(--blue);color:#fff}.btn.s:hover{background:var(--blue-dark)}
+    .btn.o{background:var(--orange);color:#fff}
+
+    /* Section header */
+    .section{padding:18px 22px;border-bottom:1px solid var(--border)}
+    .section h3{margin:0;font-family:'Source Serif Pro',serif;color:var(--primary-red);font-size:26px}
+
+    /* Articles grid */
+    .grid-arts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;padding:18px}
+    @media(max-width:1100px){.grid-arts{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:700px){.grid-arts{grid-template-columns:1fr}}
+    .a{border:1px solid var(--border);border-radius:10px;overflow:hidden;background:var(--card);display:flex;flex-direction:column;transition:transform .15s}
+    .a:hover{transform:translateY(-2px)}
+    .a-img{height:168px;background:linear-gradient(135deg,var(--bg-2),var(--border));position:relative}
+    .chip{position:absolute;left:10px;top:10px;background:var(--primary-red);color:#fff;padding:5px 8px;border-radius:6px;font-size:12px;font-weight:700}
+    .chip.blue{background:var(--blue)}
+    .a-b{padding:14px 14px 12px}
+    .meta{font-size:12px;color:var(--muted-2);display:flex;gap:10px;align-items:center;margin-bottom:8px}
+    .a h4{margin:0 0 8px;font-size:18px;line-height:1.35}
+    .a p{margin:0 0 10px;color:var(--muted)}
+    .a .row{display:flex;justify-content:space-between;align-items:center}
+    .a .more{color:var(--blue);text-decoration:none;font-weight:700}
+    .tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
+    .tag{font-size:11px;background:var(--bg-2);border:1px solid var(--border);padding:3px 8px;border-radius:999px;color:var(--muted)}
+
+    /* Sidebar */
+    .side{display:flex;flex-direction:column;gap:22px}
+    .w h5{margin:0;font-size:14px;letter-spacing:.5px;text-transform:uppercase}
+    .w .hd{background:var(--primary-red);color:#fff;padding:12px 16px;border-radius:12px 12px 0 0}
+    .w .bd{padding:14px}
+    .top-list{list-style:none;margin:0;padding:0}
+    .top-list li{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)}
+    .top-list li:last-child{border-bottom:none}
+    .num{width:28px;height:28px;border-radius:999px;background:var(--primary-red);color:#fff;display:grid;place-items:center;font-weight:800}
+
+    /* Content sections */
+    .content{max-width:1200px;margin:0 auto;padding:20px}
+    .c-card{padding:24px}
+
+    /* Footer */
+    footer{background:#0e1014;color:#bdbdbd;margin-top:36px}
+    .foot{max-width:1200px;margin:0 auto;padding:28px 20px}
+    .foot-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:18px;margin-bottom:16px}
+    .foot a{color:#d0d0d0;text-decoration:none}
+    .foot a:hover{color:#fff;text-decoration:underline}
+    .copy{text-align:center;border-top:1px solid #222;margin-top:18px;padding-top:18px}
+
+    /* Empty */
+    .empty{padding:26px;text-align:center;color:var(--muted)}
+  </style>
+</head>
+<body>
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div class="wrap">
+      <div><span class="pill">Gratis</span> Åpne nyheter for hele Norge</div>
+      <div id="topTime"></div>
+    </div>
+  </div>
+
+  <!-- HEADER -->
+  <header>
+    <div class="head">
+      <div class="brand">
+        <img src="assets/img/logo.svg" alt="DINAVIS" width="52" height="52" />
+        <div class="mast">
+          <h1 class="title">DINAVIS</h1>
+          <div class="subtitle">Hele Norges gratisavis</div>
+        </div>
+      </div>
+      <div class="mast" style="text-align:right">
+        <div id="today"></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- NAV -->
+  <div class="nav">
+    <div class="wrap">
+      <button class="tool hamb" id="hamb" aria-label="Meny">☰</button>
+      <div class="links" id="links">
+        <a href="#" class="link active" data-section="home">Forsiden</a>
+        <a href="#" class="link" data-section="about">Om oss</a>
+        <a href="#" class="link" data-section="contact">Kontakt</a>
+      </div>
+      <div class="tools">
+        <button class="tool" id="themeBtn" title="Bytt tema">🌓</button>
+        <button class="tool" id="shareOpen" title="Del">🔗</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- BREAKING -->
+  <div class="breaking" id="breaking" style="display:none">
+    <div class="wrap"><span class="badge">Siste nytt</span> <span id="breakingText"></span></div>
+  </div>
+
+  <!-- MAIN -->
+  <main class="main">
+    <section class="card filter" id="filterCard">
+      <h2>Tilpass din avis</h2>
+      <div class="grid">
+        <div class="fg"><label for="region">Fylke</label><select id="region"><option value="">Alle fylker</option></select></div>
+        <div class="fg"><label for="category">Tema</label><select id="category"><option value="">Alle tema</option></select></div>
+        <div class="fg"><label for="source">Kilde</label><select id="source"><option value="">Alle kilder</option></select></div>
+        <div class="fg"><label for="search">Søk</label><input id="search" type="search" placeholder="Søk i artikler…" /></div>
+      </div>
+      <div class="f-actions">
+        <button class="btn s" id="resetBtn">Nullstill</button>
+        <button class="btn p" id="saveBtn">Lagre som Min Avis</button>
+      </div>
+    </section>
+
+    <section class="card" id="articlesCard">
+      <div class="section"><h3>Nyheter</h3></div>
+      <div class="grid-arts" id="articles"></div>
+      <div class="empty" id="empty" style="display:none;">Ingen artikler matcher filtrene dine.</div>
+    </section>
+
+    <aside class="side">
+      <section class="card w">
+        <div class="hd"><h5>Mest lest</h5></div>
+        <div class="bd"><ol class="top-list" id="topList"></ol></div>
+      </section>
+      <section class="card w">
+        <div class="hd"><h5>Støtt DINAVIS</h5></div>
+        <div class="bd">
+          <p>Hjelp oss å holde avisa gratis og reklamefri.</p>
+          <div style="display:flex;gap:10px;flex-wrap:wrap">
+            <button class="btn p">Doner</button>
+            <button class="btn o">Bli støttemedlem</button>
+          </div>
+        </div>
+      </section>
+      <section class="card w">
+        <div class="hd"><h5>Nyhetsbrev</h5></div>
+        <div class="bd">
+          <input type="email" placeholder="Din e-post" style="width:100%;padding:10px;border:1px solid var(--border-2);border-radius:8px;margin-bottom:10px">
+          <button class="btn s" style="width:100%">Meld meg på</button>
+        </div>
+      </section>
+    </aside>
+  </main>
+
+  <!-- CONTENT SECTIONS -->
+  <section class="content" id="about" style="display:none">
+    <div class="card c-card">
+      <h3 style="margin-top:0;font-family:'Source Serif Pro',serif;color:var(--primary-red)">Om DINAVIS</h3>
+      <p>DINAVIS er Norges åpne nettavis, kuratert fra offentlige og frie kilder. Ingen betalingsmur, ingen sporing, ingen klikkjag.</p>
+    </div>
+  </section>
+
+  <section class="content" id="contact" style="display:none">
+    <div class="card c-card">
+      <h3 style="margin-top:0;font-family:'Source Serif Pro',serif;color:var(--primary-red)">Kontakt</h3>
+      <p>Tips & redaksjon: <a href="mailto:tips@dinavis.no">tips@dinavis.no</a></p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="foot">
+      <div class="foot-grid">
+        <div><h4>Prosjekt</h4><p>Åpen kildekode og åpne data – for hele Norge.</p></div>
+        <div><h4>Lenker</h4><p><a href="#">Personvern</a> · <a href="#">Vilkår</a></p></div>
+        <div><h4>Kontakt</h4><p><a href="mailto:hei@dinavis.no">hei@dinavis.no</a></p></div>
+      </div>
+      <div class="copy">© 2025 DINAVIS – Gratis • Åpen • Reklamefri</div>
+    </div>
+  </footer>
+
+  <!-- SHARE MODAL -->
+  <dialog id="shareDlg" style="border:none;border-radius:12px;padding:0;max-width:420px;width:92%">
+    <div class="card" style="padding:20px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+        <h3 style="margin:0;font-family:'Source Serif Pro',serif;color:var(--primary-red)">Del denne siden</h3>
+        <button class="btn" id="shareClose" style="background:var(--border-2);">Lukk</button>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px">
+        <a class="btn s" id="shareFb" target="_blank">Facebook</a>
+        <a class="btn s" id="shareTw" target="_blank">X/Twitter</a>
+        <a class="btn s" id="shareLi" target="_blank">LinkedIn</a>
+      </div>
+      <div style="display:flex;gap:8px;margin-top:12px">
+        <input id="shareUrl" style="flex:1;padding:10px;border:1px solid var(--border-2);border-radius:8px" readonly>
+        <button class="btn p" id="copyBtn">Kopier</button>
+      </div>
+    </div>
+  </dialog>
+
+  <script>
+    const DATA_URL = 'assets/data/articles.json';
+    const prefsKey = 'dinavis_prefs';
+    const themeKey = 'dinavis_theme';
+
+    const $ = (sel)=>document.querySelector(sel);
+    const $$ = (sel)=>document.querySelectorAll(sel);
+
+    // Init
+    const now = new Date();
+    $('#topTime').textContent = now.toLocaleTimeString('nb-NO',{hour:'2-digit',minute:'2-digit'});
+    $('#today').textContent   = now.toLocaleDateString('nb-NO',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+
+    // Theme
+    (function initTheme(){
+      const saved = localStorage.getItem(themeKey)||'';
+      if(saved) document.documentElement.setAttribute('data-theme', saved);
+      $('#themeBtn').onclick = ()=>{
+        const cur = document.documentElement.getAttribute('data-theme');
+        const next = cur==='dark' ? '' : 'dark';
+        if(next) document.documentElement.setAttribute('data-theme', next);
+        else document.documentElement.removeAttribute('data-theme');
+        localStorage.setItem(themeKey, next);
+      };
+    })();
+
+    // Nav + hamburger
+    $('#hamb').onclick = ()=> $('#links').classList.toggle('open');
+    $$('.link').forEach(a=>{
+      a.addEventListener('click', e=>{
+        e.preventDefault();
+        $$('.link').forEach(n=>n.classList.remove('active'));
+        a.classList.add('active');
+        const sec=a.dataset.section;
+        const showHome=sec==='home';
+        document.getElementById('filterCard').style.display=showHome?'block':'none';
+        document.getElementById('articlesCard').style.display=showHome?'block':'none';
+        document.getElementById('about').style.display=sec==='about'?'block':'none';
+        document.getElementById('contact').style.display=sec==='contact'?'block':'none';
+        if(showHome) render(curList);
+        window.scrollTo({top:0,behavior:'smooth'});
+      });
+    });
+
+    // Share modal
+    const dlg = document.getElementById('shareDlg');
+    $('#shareOpen').onclick = ()=>{
+      const u = location.href;
+      $('#shareUrl').value = u;
+      $('#shareFb').href = 'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(u);
+      $('#shareTw').href = 'https://twitter.com/intent/tweet?url='+encodeURIComponent(u)+'&text='+encodeURIComponent('Se DINAVIS');
+      $('#shareLi').href = 'https://www.linkedin.com/sharing/share-offsite/?url='+encodeURIComponent(u);
+      dlg.showModal();
+    };
+    $('#shareClose').onclick = ()=> dlg.close();
+    $('#copyBtn').onclick = ()=>{ navigator.clipboard.writeText($('#shareUrl').value); $('#copyBtn').textContent='Kopiert!'; setTimeout(()=>$('#copyBtn').textContent='Kopier',1200); };
+
+    // Data + filters
+    let all=[], curList=[];
+    fetch(DATA_URL).then(r=>r.json()).then(data=>{
+      all = data.slice().sort((a,b)=> (b.published||'').localeCompare(a.published||''));
+      curList = all.slice();
+      fillFilters(all);
+      restorePrefs();
+      showBreaking(curList);
+      render(curList);
+      hookFilterEvents();
+      populateMostRead(all);
+    }).catch(()=> {
+      document.getElementById('articles').innerHTML = '<div class="empty">Klarte ikke laste artikler.</div>';
+    });
+
+    function uniq(arr){return [...new Set(arr)].filter(Boolean).sort((a,b)=>a.localeCompare(b,'nb'))}
+    function fillFilters(list){
+      const regs = uniq(list.flatMap(a=>a.regions||[]));
+      const cats = uniq(list.flatMap(a=>a.categories||[]));
+      const srcs = uniq(list.map(a=>a.source_name||''));
+      const rSel = document.getElementById('region'), cSel=document.getElementById('category'), sSel=document.getElementById('source');
+      regs.forEach(v=> rSel.add(new Option(v,v)));
+      cats.forEach(v=> cSel.add(new Option(v,v)));
+      srcs.forEach(v=> sSel.add(new Option(v,v)));
+    }
+
+    function hookFilterEvents(){
+      ['region','category','source','search'].forEach(id=> document.getElementById(id).addEventListener('input', applyFilters));
+      document.getElementById('resetBtn').onclick = ()=>{ ['region','category','source','search'].forEach(id=> document.getElementById(id).value=''); applyFilters(); savePrefs(true); };
+      document.getElementById('saveBtn').onclick  = ()=> savePrefs(false);
+    }
+
+    function applyFilters(){
+      const r = document.getElementById('region').value;
+      const c = document.getElementById('category').value;
+      const s = document.getElementById('source').value;
+      const q = document.getElementById('search').value.toLowerCase().trim();
+      curList = all.filter(a=>{
+        const regOk = !r || (a.regions||[]).includes(r);
+        const catOk = !c || (a.categories||[]).includes(c);
+        const srcOk = !s || (a.source_name||'')===s;
+        const qOk   = !q || (a.title||'').toLowerCase().includes(q) || (a.ingress||'').toLowerCase().includes(q);
+        return regOk && catOk && srcOk && qOk;
+      });
+      showBreaking(curList);
+      render(curList);
+    }
+
+    function render(list){
+      const box = document.getElementById('articles');
+      const empty = document.getElementById('empty');
+      if(!list.length){ box.innerHTML=''; empty.style.display='block'; return; }
+      empty.style.display='none';
+      box.innerHTML = list.map(a=>{
+        const cat=(a.categories&&a.categories[0])||'';
+        const reg=(a.regions&&a.regions[0])||'';
+        const date=a.published||'';
+        return `
+        <article class="a">
+          <div class="a-img">
+            ${cat?`<span class="chip">${cat}</span>`:''}
+            ${reg?`<span class="chip blue" style="top:auto;bottom:10px">${reg}</span>`:''}
+          </div>
+          <div class="a-b">
+            <div class="meta">${a.source_name||''} · <span>${date}</span></div>
+            <h4><a class="more" href="${a.source_url}" target="_blank" rel="noopener">${a.title||''}</a></h4>
+            <p>${a.ingress||''}</p>
+            <div class="tags">${(a.tags||[]).slice(0,4).map(t=>`<span class="tag">${t}</span>`).join('')}</div>
+            <div class="row"><a class="more" href="${a.source_url}" target="_blank" rel="noopener">Les mer →</a></div>
+          </div>
+        </article>`;
+      }).join('');
+    }
+
+    function showBreaking(list){
+      const bar = document.getElementById('breaking');
+      if(list.length){ document.getElementById('breakingText').textContent=list[0].title||''; bar.style.display='block'; }
+      else bar.style.display='none';
+    }
+
+    function savePrefs(clear){
+      if(clear){ localStorage.removeItem(prefsKey); return; }
+      const obj = {
+        region:document.getElementById('region').value,
+        category:document.getElementById('category').value,
+        source:document.getElementById('source').value,
+        search:document.getElementById('search').value
+      };
+      localStorage.setItem(prefsKey, JSON.stringify(obj));
+    }
+    function restorePrefs(){
+      const raw = localStorage.getItem(prefsKey); if(!raw) return;
+      try{
+        const p = JSON.parse(raw)||{};
+        if(p.region)   document.getElementById('region').value = p.region;
+        if(p.category) document.getElementById('category').value = p.category;
+        if(p.source)   document.getElementById('source').value = p.source;
+        if(p.search)   document.getElementById('search').value = p.search;
+        applyFilters();
+      }catch(_){}
+    }
+  </script>
+</body>
+</html>
