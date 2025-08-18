@@ -1,0 +1,6 @@
+# Backups og lokale filer
+assets/data/*.bak
+*.bak
+ET
+.DS_Store
+Thumbs.db
