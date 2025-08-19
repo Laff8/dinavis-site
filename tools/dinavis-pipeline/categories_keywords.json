@@ -1,0 +1,10 @@
+{
+  "politikk": ["regjering","storting","kommuneplan","budsjett","forskrift","høyring","minister"],
+  "økonomi":  ["pris","inflasjon","løn","avgift","rente","marked","økonomi","investering"],
+  "helse":    ["sykehus","helse","pandemi","virus","lege","psykisk","omsorg","helsedirektoratet"],
+  "kultur":   ["festival","museum","utstilling","konsert","litteratur","teater","film"],
+  "krim":     ["politi","siktet","tiltalt","rettssak","dom","etterforsking","ran"],
+  "sport":    ["kamp","serie","cup","idrett","skiskyting","fotball","handball","nm"],
+  "teknologi":["AI","datasikkerheit","cyber","programvare","app","teknologi","robot","digitalisering"],
+  "utdanning":["skule","universitet","høgskule","eksamen","utdanning","student"]
+}

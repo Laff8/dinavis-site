@@ -4,3 +4,4 @@ assets/data/*.bak
 ET
 .DS_Store
 Thumbs.db
+assets/data/articles.json.bak.*

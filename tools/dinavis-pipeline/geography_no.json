@@ -1,0 +1,4 @@
+{
+  "fylke": ["Akershus","Buskerud","Østfold","Oslo","Innlandet","Vestfold","Telemark","Agder","Rogaland","Vestland","Møre og Romsdal","Trøndelag","Nordland","Troms","Finnmark"],
+  "kommunar": ["Oslo","Bergen","Trondheim","Stavanger","Kristiansand","Drammen","Fredrikstad","Sandnes","Bodø","Ålesund","Molde","Ulstein","Herøy","Sande","Hareid","Sula","Giske","Ørsta","Volda","Stranda","Namsos","Steinkjer","Levanger","Verdal","Stjørdal"]
+}

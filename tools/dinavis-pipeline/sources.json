@@ -1,0 +1,10 @@
+[
+  { "name":"SSB – Pressemeldingar", "type":"rss", "url":"https://www.ssb.no/rss",
+    "license_hint":"CC BY 4.0 (tekst). Sjekk bilete pr. sak.", "default_region":"Nasjonalt" },
+  { "name":"Regjeringen – Nyheiter", "type":"rss", "url":"https://www.regjeringen.no/no/aktuelt/nyheter/rss/id2006121/",
+    "license_hint":"Offentleg innhald (tekst). Bilete kan variere.", "default_region":"Nasjonalt" },
+  { "name":"Politiet – Nyheiter", "type":"rss", "url":"https://www.politiet.no/aktuelt-tall-og-fakta/nyheter/?rss=true",
+    "license_hint":"Offentleg innhald (tekst). Bilete kan variere.", "default_region":"Nasjonalt" },
+  { "name":"NRK Beta", "type":"rss", "url":"https://nrkbeta.no/feed/",
+    "license_hint":"Tekst ofte CC BY-SA. Sjekk lisens.", "default_region":"Nasjonalt" }
+]
