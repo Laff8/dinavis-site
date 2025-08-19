@@ -5,3 +5,4 @@ ET
 .DS_Store
 Thumbs.db
 assets/data/articles.json.bak.*
+tools/dinavis-pipeline/.venv
